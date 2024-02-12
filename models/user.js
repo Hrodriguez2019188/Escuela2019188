@@ -14,7 +14,7 @@ const UsertSchema = Schema ({
     },
     Cursos:{
         type: String,
-        required: [true, 'El password es obligatorio']
+        required: [true, 'El curso es obligatorio']
     },
     img:{
         type: String
@@ -23,7 +23,6 @@ const UsertSchema = Schema ({
         type: String,
         required: true,
         enum: ["STUDENT_ROLE, TEACHER_ROLE"],
-        default: ["STUDENT_ROLE"]
     },
     estado:{
         type: Boolean,
@@ -32,9 +31,4 @@ const UsertSchema = Schema ({
     
 }); 
 
-module.exports=model("User", UsertSchema);
-
-
-
-
-module.exports = model('user', UsertSchema);
+module.exports = model('User', UsertSchema);

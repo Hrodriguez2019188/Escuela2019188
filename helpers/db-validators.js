@@ -1,6 +1,5 @@
 const User = require( '../models/User' );
-
-
+const Role = require('../models/role');
 
 
 
@@ -10,7 +9,6 @@ const existenteCorreo = async (correoU = '') => {
         throw new Error(`El email ${ correoU } ya fue registrado`);
     }
 }
-
 
 const existeUserById = async ( id = '') => {
     const existeUser = await User.findOne({id});

@@ -7,8 +7,12 @@ class Server{
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
+
+        this.userPath = '/api/user';
+
         this.conectarDB();
         this.middlewares();
+        this.routes();
     }
 
     async conectarDB(){
@@ -21,6 +25,9 @@ class Server{
         this.app.use(express.json());
     }
 
+    routes(){
+        this.app.use(this.userPath, require('../routes/user.routes'));
+    }
 
     listen(){
         this.app.listen(this.port, () => {

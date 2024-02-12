@@ -1,11 +1,11 @@
 const { response, json } = require('express');
 const bcryptjs = require('bcryptjs');
-const User  = require('../models/User.model');
+const User  = require('../models/User');
 
 
 const userPost = async (req, res) =>{
-    const { nombreU, passwordU, correoU, role} = req.body;
-    const user = new User({nombreU, passwordU, correoU, role});
+    const { nombreU, passwordU, correoU, Cursos, role} = req.body;
+    const user = new User({nombreU, passwordU, correoU, Cursos, role});
 
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(passwordU, salt);
@@ -35,7 +35,7 @@ const userGet = async (req, res = response ) => {
 
 const userPut = async (req, res) => {
     const { id } = req.params;
-    const { _id, nombreU, passwordU, correoU, ...resto} = req.body;
+    const { _id, nombreU, passwordU, correoU, Cursos, ...resto} = req.body;
 
     await Student.findByIdAndUpdate(id, resto);
 
