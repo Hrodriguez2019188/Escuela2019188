@@ -16,7 +16,6 @@ const UsertSchema = Schema ({
         type: String,
         required: [true, 'El password es obligatorio']
     },
-
     img:{
         type: String
     },
