@@ -19,15 +19,16 @@ const UsertSchema = Schema ({
     img:{
         type: String
     },
-    role:{
+    role: {
         type: String,
         required: true,
-        enum: ["STUDENT_ROLE, TEACHER_ROLE"],
+        enum: ["STUDENT_ROLE", "TEACHER_ROLE"],
+        default: "STUDENT_ROLE"
     },
     estado:{
         type: Boolean,
         default: true
-    },
+    }
     
 }); 
 
