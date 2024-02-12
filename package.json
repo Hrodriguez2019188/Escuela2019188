@@ -1,10 +1,11 @@
 {
   "name": "escuela2019188",
   "version": "1.0.0",
-  "description": "\"# Escuela2019188\"",
+  "description": "Segunda api hrodriguez",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Héctor Javier Rodríguez Cabrera",
