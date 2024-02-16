@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const { existenteCorreo, existeUserById,esRolValido} = require('../helpers/db-validators');
+const { existenteCorreo, existeUserById} = require('../helpers/db-validators');
 
 const {userPut, userPost, userGet } = require('../controllers/user.controller');
 
@@ -18,7 +18,7 @@ router.post(
         check("correoU","Este no es un correo válido").isEmail(),
         check("correoU").custom(existenteCorreo),
         check("Cursos").not().isEmpty(),
-        check("role").custom(esRolValido),
+        check("role").not().isEmpty(),
         validarCampos,
     ], userPost); 
 

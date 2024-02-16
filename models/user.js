@@ -1,6 +1,6 @@
 const { Schema, model} = require('mongoose');
 
-const UserSchema = Schema ({
+const UsertSchema = Schema ({
     nombreU: {
         type: String,
         required: [true, 'El nombre es obligatorio']
@@ -29,4 +29,4 @@ const UserSchema = Schema ({
     
 }); 
 
-module.exports = model('User', UserSchema);
+module.exports = model('User', UsertSchema);
