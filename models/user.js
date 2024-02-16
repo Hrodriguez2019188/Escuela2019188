@@ -14,7 +14,8 @@ const UsertSchema = Schema ({
     },
     Cursos:{
         type: String,
-        required: [true, 'El curso es obligatorio']
+        required: true,  //por defecto se pone false
+        enum: ["matematicas", "literatura","sociales", "biologia","computacion", "seminario"],
     },
     role: {
         type: String,
