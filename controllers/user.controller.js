@@ -1,54 +1,69 @@
 const { response, json } = require('express');
 const bcryptjs = require('bcryptjs');
-const User  = require('../models/User');
+const User = require('../models/user');
 
+const userPost = async (req, res) => {
+  const { name, email, password, role, course } = req.body;
+  const user = new User({ name, email, password, role, course });
 
-const userPost = async (req, res) =>{
-    const { nombreU, passwordU, correoU, Cursos, role} = req.body;
-    const user = new User({nombreU, passwordU, correoU, Cursos, role});
+  const salt = bcryptjs.genSaltSync();
+  user.password = bcryptjs.hashSync(password, salt);
 
-    const salt = bcryptjs.genSaltSync();
-    user.password = bcryptjs.hashSync(passwordU, salt);
+  await user.save();
+  res.status(200).json({
+    user,
+  });
+};
 
-    await user.save();
-    res.status(200).json({
-        user
-    });
-}
+const userGet = async (req, res = response) => {
+  const { limit, from } = req.query;
+  const query = { state: true };
 
-const userGet = async (req, res = response ) => {
-    const { limite, desde } = req.query;
-    const query = { estado: true};
+  const [total, users] = await Promise.all([
+    User.countDocuments(query),
+    User.find(query).skip(Number(from)).limit(Number(limit)),
+  ]);
 
-    const [total, user] = await Promise.all([
-        User.countDocuments(query),
-        User.find(query)
-        .skip(Number(desde))
-        .limit(Number(limite))
-    ]);
-
-    res.status(200).json({
-        total,
-        user
-    });
-} 
+  res.status(200).json({
+    total,
+    users,
+  });
+};
 
 const userPut = async (req, res) => {
-    const { id } = req.params;
-    const { _id, nombreU, passwordU, correoU, Cursos, ...resto} = req.body;
+  const { id } = req.params;
+  const { _id, name, email, password, role, course, ...rest } = req.body;
 
-    await Student.findByIdAndUpdate(id, resto);
+  await User.findByIdAndUpdate(id, rest);
+  const user = await User.findOne({ _id: id });
 
-    const student = await Student.findOne({_id: id});
+  res.status(200).json({
+    msg: 'User updated successfully',
+    user,
+  });
+};
 
-    res.status(200).json({
-        msg: 'Usuario Actualizado exitosamente',
-        student
-    })
-}
+const userGetById = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findOne({ _id: id });
+  res.status(200).json({
+    user,
+  });
+};
+
+const userDelete = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findByIdAndUpdate(id, { state: false });
+  res.status(200).json({
+    msg: 'User deleted successfully',
+    user,
+  });
+};
 
 module.exports = {
-    userGet,
-    userPut,
-    userPost
-}
+  userPost,
+  userGet,
+  userPut,
+  userGetById,
+  userDelete,
+};
